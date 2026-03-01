@@ -14,9 +14,13 @@ logger = logging.getLogger(__name__)
 
 
 @pytest.fixture
-def sandbox_instance():
-    """Create an E2BSandbox instance for testing"""
-    return E2BSandbox()
+async def sandbox_instance():
+    """Create an E2BSandbox instance for testing (function-scoped)"""
+    # Create a new E2B sandbox for each test
+    sandbox = await E2BSandbox.create()
+    yield sandbox
+    # Clean up - destroy the sandbox after each test
+    await sandbox.destroy()
 
 
 @pytest.fixture
@@ -50,7 +54,7 @@ async def test_file_upload_success(sandbox_instance, sample_binary_stream, temp_
     # Verify result
     assert isinstance(result, ToolResult)
     assert result.success is True
-    assert "successfully" in result.message.lower()
+    assert result.message.startswith("File uploaded:")
 
 
 async def test_file_upload_without_filename(sandbox_instance, sample_binary_stream, temp_file_path):

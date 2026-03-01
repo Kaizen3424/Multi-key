@@ -475,8 +475,14 @@ class E2BSandbox(Sandbox):
             # Read binary content
             content = file_data.read()
             
-            # Write to sandbox - use sync version
-            await asyncio.to_thread(self._sandbox.files.write, path, content)
+            # Delete existing file if it exists to avoid permission errors on overwrite
+            try:
+                await self._sandbox.files.remove(path)
+            except Exception:
+                pass  # Ignore if file doesn't exist
+            
+            # Write to sandbox - use async method directly
+            await self._sandbox.files.write(path, content)
             
             return ToolResult(
                 success=True,
@@ -499,8 +505,8 @@ class E2BSandbox(Sandbox):
             raise RuntimeError("Sandbox not initialized")
         
         try:
-            # Use sync version for reading binary content
-            content = await asyncio.to_thread(self._sandbox.files.read, path, decode=False)
+            # Use format="bytes" to get binary content
+            content = await self._sandbox.files.read(path, format="bytes")
             return io.BytesIO(content)
         except Exception as e:
             raise RuntimeError(f"Failed to download file: {str(e)}")
@@ -513,7 +519,7 @@ class E2BSandbox(Sandbox):
         """
         try:
             if self._sandbox:
-                self._sandbox.kill()
+                await self._sandbox.kill()
                 self._sandbox = None
             return True
         except Exception as e:

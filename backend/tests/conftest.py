@@ -4,6 +4,7 @@ Pytest configuration and fixtures
 import sys
 import os
 import pytest
+import asyncio
 import tempfile
 from pathlib import Path
 
@@ -14,6 +15,16 @@ import requests
 
 # Base URL for API testing
 BASE_URL = "http://localhost:8000/api/v1"
+
+
+@pytest.fixture(scope="session")
+def event_loop():
+    """Create an event loop for the test session."""
+    policy = asyncio.get_event_loop_policy()
+    loop = policy.new_event_loop()
+    yield loop
+    loop.close()
+
 
 @pytest.fixture
 def client():

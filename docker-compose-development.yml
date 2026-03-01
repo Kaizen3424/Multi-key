@@ -39,7 +39,9 @@ services:
     env_file:
       - .env
     environment:
-      # E2B Sandbox is configured via E2B_API_KEY in .env
+      - AUTH_PROVIDER=none
+      - MONGODB_URI=mongodb://mongodb:27017
+      - REDIS_HOST=redis
 
   mongodb:
     image: mongo:7.0
@@ -54,6 +56,8 @@ services:
   redis:
     image: redis:7.0
     restart: unless-stopped
+    ports:
+      - "6379:6379"
     networks:
       - manus-network
 

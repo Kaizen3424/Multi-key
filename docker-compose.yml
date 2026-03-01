@@ -1,13 +1,6 @@
 services:
   frontend:
-    image: ${IMAGE_REGISTRY:-simpleyyt}/manus-frontend:${IMAGE_TAG:-latest}
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      x-bake:
-        platforms:
-          - linux/amd64
-          - linux/arm64
+    image: simpleyyt/manus-frontend
     ports:
       - "5173:80"
     depends_on:
@@ -19,22 +12,88 @@ services:
       - BACKEND_URL=http://backend:8000
 
   backend:
-    image: ${IMAGE_REGISTRY:-simpleyyt}/manus-backend:${IMAGE_TAG:-latest}
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-      x-bake:
-        platforms:
-          - linux/amd64
-          - linux/arm64
+    image: simpleyyt/manus-backend
     depends_on:
       - mongodb
       - redis
     restart: unless-stopped
     networks:
       - manus-network
-    env_file:
-      - .env
+    environment:
+      # OpenAI API base URL
+      - API_BASE=https://api.openai.com/v1
+      # OpenAI API key, replace with your own
+      - API_KEY=sk-xxxx
+      # LLM model name
+      - MODEL_NAME=gpt-4o
+      # LLM temperature parameter, controls randomness
+      - TEMPERATURE=0.7
+      # Maximum tokens for LLM response
+      - MAX_TOKENS=2000
+
+      # MongoDB connection URI
+      #- MONGODB_URI=mongodb://mongodb:27017
+      # MongoDB database name
+      #- MONGODB_DATABASE=manus
+      # MongoDB username (optional)
+      #- MONGODB_USERNAME=
+      # MongoDB password (optional)
+      #- MONGODB_PASSWORD=
+
+      # Redis server hostname
+      #- REDIS_HOST=redis
+      # Redis server port
+      #- REDIS_PORT=6379
+      # Redis database number
+      #- REDIS_DB=0
+      # Redis password (optional)
+      #- REDIS_PASSWORD=
+
+      # E2B Sandbox configuration
+      # Get your API key from https://e2b.dev/dashboard
+      - E2B_API_KEY=
+      - E2B_TEMPLATE=base
+      - E2B_TIMEOUT=300
+      
+      # Search engine configuration
+      # Options: baidu, google, bing
+      - SEARCH_PROVIDER=bing
+
+      # Google search configuration, only used when SEARCH_PROVIDER=google
+      #- GOOGLE_SEARCH_API_KEY=
+      #- GOOGLE_SEARCH_ENGINE_ID=
+
+      # Auth configuration
+      # Options: password, none, local
+      - AUTH_PROVIDER=password
+
+      # Password auth configuration, only used when AUTH_PROVIDER=password
+      - PASSWORD_SALT=
+      - PASSWORD_HASH_ROUNDS=10
+
+      # Local auth configuration, only used when AUTH_PROVIDER=local
+      #- LOCAL_AUTH_EMAIL=admin@example.com
+      #- LOCAL_AUTH_PASSWORD=admin
+
+      # JWT configuration
+      - JWT_SECRET_KEY=your-secret-key-here
+      - JWT_ALGORITHM=HS256
+      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - JWT_REFRESH_TOKEN_EXPIRE_DAYS=7
+
+      # Email configuration
+      # Only used when AUTH_PROVIDER=password
+      #- EMAIL_HOST=smtp.gmail.com
+      #- EMAIL_PORT=587
+      #- EMAIL_USERNAME=your-email@gmail.com
+      #- EMAIL_PASSWORD=your-password
+      #- EMAIL_FROM=your-email@gmail.com
+
+      # MCP configuration file path
+      #- MCP_CONFIG_PATH=/etc/mcp.json
+
+      # Application log level
+      - LOG_LEVEL=INFO
 
   mongodb:
     image: mongo:7.0

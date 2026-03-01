@@ -36,6 +36,11 @@ class Settings(BaseSettings):
     sandbox_http_proxy: str | None = None
     sandbox_no_proxy: str | None = None
     
+    # E2B Sandbox configuration
+    e2b_api_key: str | None = None  # E2B API key for authentication
+    e2b_template: str | None = None  # E2B sandbox template to use (e.g., "base", "python", "nodejs")
+    e2b_timeout: int = 300  # Default timeout for e2b operations in seconds
+    
     # Search engine configuration
     search_provider: str | None = "bing"  # "baidu", "google", "bing"
     google_search_api_key: str | None = None
@@ -74,8 +79,9 @@ class Settings(BaseSettings):
         
     def validate(self):
         """Validate configuration settings"""
-        if not self.api_key:
-            raise ValueError("API key is required")
+        # Only validate API key if not using 'none' auth
+        if self.auth_provider != "none" and not self.api_key:
+            raise ValueError("API key is required when auth provider is not 'none'")
 
 @lru_cache()
 def get_settings() -> Settings:

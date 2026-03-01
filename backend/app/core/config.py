@@ -25,20 +25,9 @@ class Settings(BaseSettings):
     redis_db: int = 0
     redis_password: str | None = None
     
-    # Sandbox configuration
-    sandbox_address: str | None = None
-    sandbox_image: str | None = None
-    sandbox_name_prefix: str | None = None
-    sandbox_ttl_minutes: int | None = 30
-    sandbox_network: str | None = None  # Docker network bridge name
-    sandbox_chrome_args: str | None = ""
-    sandbox_https_proxy: str | None = None
-    sandbox_http_proxy: str | None = None
-    sandbox_no_proxy: str | None = None
-    
-    # E2B Sandbox configuration
-    e2b_api_key: str | None = None  # E2B API key for authentication
-    e2b_template: str | None = None  # E2B sandbox template to use (e.g., "base", "python", "nodejs")
+    # E2B Sandbox configuration (REQUIRED)
+    e2b_api_key: str | None = None  # E2B API key for authentication (REQUIRED)
+    e2b_template: str | None = "base"  # E2B sandbox template to use (e.g., "base", "python", "nodejs")
     e2b_timeout: int = 300  # Default timeout for e2b operations in seconds
     
     # Search engine configuration

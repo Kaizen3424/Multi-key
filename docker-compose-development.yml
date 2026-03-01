@@ -12,7 +12,6 @@ services:
       - "5173:5173"  # Vite default development port
     environment:
       - NODE_ENV=development
-      #- VITE_API_URL=http://127.0.0.1:8000
       - BACKEND_URL=http://backend:8000
     depends_on:
       - backend
@@ -27,66 +26,20 @@ services:
     command: ["./dev.sh"]  # Start in reload mode
     volumes:
       - ./backend:/app  # Mount source code directory
-      #- ./mcp.json:/etc/mcp.json # Mount MCP servers directory
-      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /app/__pycache__  # Avoid overwriting cache files
       - /app/.venv  # Avoid overwriting virtual environment
     ports:
       - "8000:8000"
     depends_on:
-      sandbox:
-        condition: service_started
-        required: false
-      mongodb:
-        condition: service_started
-        required: true
-      redis:
-        condition: service_started
-        required: true
+      - mongodb
+      - redis
     restart: unless-stopped
     networks:
       - manus-network
     env_file:
       - .env
     environment:
-      - SANDBOX_ADDRESS=sandbox # Use single container as sandbox
-
-  sandbox:
-    build:
-      context: ./sandbox
-      dockerfile: Dockerfile
-    hostname: sandbox
-    volumes:
-      - ./sandbox:/app  # Mount source code directory
-      - ./sandbox/supervisord.conf:/etc/supervisor/conf.d/app.conf
-      - /app/__pycache__  # Avoid overwriting cache files
-      - /app/.venv  # Avoid overwriting virtual environment
-    ports:
-      #- "9222:9222"
-      - "5902:5900"
-      #- "5901:5901"
-      - "8080:8080"
-    environment:
-      - UVI_ARGS="--reload"
-      - LOG_LEVEL=${LOG_LEVEL:-DEBUG}
-    restart: unless-stopped
-    networks:
-      - manus-network
-
-  mockserver:
-    build:
-      context: ./mockserver
-      dockerfile: Dockerfile
-    volumes:
-      - ./mockserver:/app  # Mount source code directory
-      - /app/__pycache__  # Avoid overwriting cache files
-      - /app/.venv  # Avoid overwriting virtual environment
-    restart: unless-stopped
-    environment:
-      - MOCK_DATA_FILE=default.yaml
-      - MOCK_DELAY=1
-    networks:
-      - manus-network
+      # E2B Sandbox is configured via E2B_API_KEY in .env
 
   mongodb:
     image: mongo:7.0

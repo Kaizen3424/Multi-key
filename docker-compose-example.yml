@@ -70,6 +70,12 @@ services:
       # No proxy hosts for sandbox (optional)
       #- SANDBOX_NO_PROXY=
       
+      # E2B Sandbox configuration (use instead of Docker sandbox)
+      # Get your API key from https://e2b.dev/dashboard
+      #- E2B_API_KEY=
+      #- E2B_TEMPLATE=base  # Options: base, python, nodejs, etc.
+      #- E2B_TIMEOUT=300  # Timeout in seconds
+      
       # Search engine configuration
       # Options: baidu, google, bing
       - SEARCH_PROVIDER=bing

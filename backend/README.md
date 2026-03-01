@@ -42,11 +42,13 @@ backend/
    - Web search integration
 4. **Sandbox Environment**: Use Docker containers to provide isolated execution environments
 5. **VNC Visualization**: Support remote viewing of the sandbox environment via WebSocket connection
+6. **E2B Sandbox Support**: Option to use cloud-based E2B sandbox instead of local Docker
 
 ## Requirements
 
 - Python 3.9+
-- Docker 20.10+
+- Docker 20.10+ (for Docker sandbox)
+- OR E2B account (for cloud sandbox)
 - MongoDB 4.4+
 - Redis 6.0+
 
@@ -84,6 +86,11 @@ SANDBOX_IMAGE=simpleyyt/manus-sandbox          # Sandbox environment Docker imag
 SANDBOX_NAME_PREFIX=sandbox              # Sandbox container name prefix
 SANDBOX_TTL_MINUTES=30                   # Sandbox container time-to-live (minutes)
 SANDBOX_NETWORK=manus-network            # Docker network name for communication between sandbox containers
+
+# E2B Sandbox configuration (use instead of Docker sandbox)
+E2B_API_KEY=                              # Get from https://e2b.dev/dashboard
+E2B_TEMPLATE=base                         # Sandbox template (base, python, nodejs, etc.)
+E2B_TIMEOUT=300                          # Execution timeout in seconds
 
 # Database configuration
 MONGODB_URL=mongodb://localhost:27017    # MongoDB connection URL

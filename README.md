@@ -39,7 +39,8 @@ https://github.com/user-attachments/assets/37060a09-c647-4bcb-920c-959f7fa73ebe
 
  * Deployment: Minimal deployment requires only an LLM service, with no dependency on other external services.
  * Tools: Supports Terminal, Browser, File, Web Search, and messaging tools with real-time viewing and takeover capabilities, supports external MCP tool integration.
- * Sandbox: Each task is allocated a separate sandbox that runs in a local Docker environment.
+ * Sandbox: Each task is allocated a separate sandbox that runs in a local Docker environment OR cloud-based E2B sandbox.
+ * Sandbox Options: Choose between **Docker sandbox** (local) or **E2B sandbox** (cloud) for code execution.
  * Task Sessions: Session history is managed through MongoDB/Redis, supporting background tasks.
  * Conversations: Supports stopping and interrupting, file upload and download.
  * Multilingual: Supports both Chinese and English.
@@ -75,6 +76,16 @@ https://github.com/user-attachments/assets/37060a09-c647-4bcb-920c-959f7fa73ebe
 This project primarily relies on Docker for development and deployment, requiring a relatively new version of Docker:
 - Docker 20.10+
 - Docker Compose
+
+**Option 1: Docker Sandbox (Local)**
+- Requires Docker running locally
+- Each task gets isolated container
+- Full browser/VNC support
+
+**Option 2: E2B Sandbox (Cloud)**
+- No Docker required
+- Cloud-based code execution
+- Get your API key from https://e2b.dev/dashboard
 
 Model capability requirements:
 - Compatible with OpenAI interface
@@ -161,6 +172,12 @@ services:
       # No proxy hosts for sandbox (optional)
       #- SANDBOX_NO_PROXY=
       
+      # E2B Sandbox configuration (use instead of Docker sandbox)
+      # Get your API key from https://e2b.dev/dashboard
+      #- E2B_API_KEY=
+      #- E2B_TEMPLATE=base  # Options: base, python, nodejs, etc.
+      #- E2B_TIMEOUT=300  # Timeout in seconds
+      
       # Search engine configuration
       # Options: baidu, google, bing
       - SEARCH_PROVIDER=bing
@@ -245,6 +262,21 @@ docker compose up -d
 
 Open your browser and visit <http://localhost:5173> to access Manus.
 
+### Using E2B Sandbox (Cloud)
+
+Instead of running local Docker containers, you can use E2B's cloud-based sandbox for code execution:
+
+1. Get your E2B API key from https://e2b.dev/dashboard
+2. Add to your `.env` file:
+```env
+E2B_API_KEY=your_e2b_api_key
+```
+3. The application will automatically use E2B when `E2B_API_KEY` is set
+
+**E2B Configuration Options:**
+- `E2B_TEMPLATE` - Sandbox template (base, python, nodejs, etc.) - default: base
+- `E2B_TIMEOUT` - Execution timeout in seconds - default: 300
+
 ## Development Guide
 
 ### Project Structure
@@ -268,7 +300,13 @@ cd ai-manus
 cp .env.example .env
 ```
 
-3. Modify the configuration file:
+3. (Optional) Configure E2B Sandbox:
+```bash
+# Get your API key from https://e2b.dev/dashboard
+echo "E2B_API_KEY=your_api_key_here" >> .env
+```
+
+4. Modify other settings in `.env` as needed:
 
 <!-- .env.example -->
 ```env

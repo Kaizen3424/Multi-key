@@ -120,8 +120,8 @@ def test_download_file_success(client, sample_text_file, sample_file_content):
     logger.info(f"Upload for download test response: {upload_response.status_code} - {upload_response.text}")
     file_id = upload_response.json()['data']['file_id']
     
-    # Download file
-    download_url = f"{BASE_URL}/files/{file_id}"
+    # Download file (use /download endpoint which doesn't require signature)
+    download_url = f"{BASE_URL}/files/{file_id}/download"
     response = client.get(download_url)
     
     logger.info(f"Download file response: {response.status_code} - Content length: {len(response.content)}")
@@ -134,7 +134,7 @@ def test_download_file_success(client, sample_text_file, sample_file_content):
 def test_download_file_not_found(client):
     """Test downloading non-existent file"""
     fake_file_id = "507f1f77bcf86cd799439011"  # Valid ObjectId format
-    url = f"{BASE_URL}/files/{fake_file_id}"
+    url = f"{BASE_URL}/files/{fake_file_id}/download"
     response = client.get(url)
     
     logger.info(f"Download file not found response: {response.status_code} - {response.text}")
@@ -206,9 +206,9 @@ def test_upload_binary_file(client):
     assert data['code'] == 0
     assert data['data']['size'] == 256
     
-    # Download and verify content
+    # Download and verify content (use /download endpoint which doesn't require signature)
     file_id = data['data']['file_id']
-    download_url = f"{BASE_URL}/files/{file_id}"
+    download_url = f"{BASE_URL}/files/{file_id}/download"
     download_response = client.get(download_url)
     
     assert download_response.status_code == 200

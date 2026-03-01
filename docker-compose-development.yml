@@ -31,7 +31,6 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - mongodb
       - redis
     restart: unless-stopped
     networks:
@@ -40,18 +39,8 @@ services:
       - .env
     environment:
       - AUTH_PROVIDER=none
-      - MONGODB_URI=mongodb://mongodb:27017
+      # Use MongoDB Atlas cloud - set MONGODB_URI in .env file
       - REDIS_HOST=redis
-
-  mongodb:
-    image: mongo:7.0
-    volumes:
-      - mongodb_data:/data/db
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    networks:
-      - manus-network
 
   redis:
     image: redis:7.0
@@ -60,10 +49,6 @@ services:
       - "6379:6379"
     networks:
       - manus-network
-
-volumes:
-  mongodb_data:
-    name: manus-mongodb-data
 
 networks:
   manus-network:

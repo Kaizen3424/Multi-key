@@ -105,7 +105,7 @@ pip install -r requirements.txt
 ```bash
 export API_KEY=your_llm_api_key
 export E2B_API_KEY=your_e2b_api_key
-export MONGODB_URI=mongodb://localhost:27017
+export MONGODB_URI=MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net
 export REDIS_URL=redis://localhost:6379/0
 ```
 
@@ -132,7 +132,7 @@ npm run dev
 | `E2B_API_KEY` | E2B Sandbox API key | Yes | - |
 | `E2B_TEMPLATE` | E2B sandbox template | No | `base` |
 | `E2B_TIMEOUT` | Execution timeout (seconds) | No | `300` |
-| `MONGODB_URI` | MongoDB connection string | No | `mongodb://mongodb:27017` |
+| `MONGODB_URI` | MongoDB connection string | No | `MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net` |
 | `REDIS_URL` | Redis connection URL | No | `redis://redis:6379/0` |
 | `AUTH_PROVIDER` | Auth method: `password`, `none`, `local` | No | `password` |
 | `JWT_SECRET_KEY` | JWT signing key | No | `your-secret-key-here` |

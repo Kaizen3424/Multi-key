@@ -29,7 +29,7 @@
 
 | Configuration | Default Value | Required | Description |
 |---------------|---------------|----------|-------------|
-| `MONGODB_URI` | `mongodb://mongodb:27017` | No | MongoDB connection string |
+| `MONGODB_URI` | `MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net` | No | MongoDB connection string |
 | `MONGODB_DATABASE` | `manus` | No | Database name |
 | `MONGODB_USERNAME` | - | No | MongoDB username |
 | `MONGODB_PASSWORD` | - | No | MongoDB password |

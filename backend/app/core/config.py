@@ -13,8 +13,8 @@ class Settings(BaseSettings):
     temperature: float = 0.7
     max_tokens: int = 2000
     
-    # MongoDB configuration
-    mongodb_uri: str = "mongodb://mongodb:27017"
+    # MongoDB configuration (use MongoDB Atlas for cloud hosting)
+    mongodb_uri: str = "mongodb+srv://<username>:<password>@cluster0.<cluster>.mongodb.net/?appName=Cluster0"
     mongodb_database: str = "manus"
     mongodb_username: str | None = None
     mongodb_password: str | None = None

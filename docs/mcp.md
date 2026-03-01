@@ -1,41 +1,41 @@
-# MCP 配置
+# MCP Configuration
 
-## 简介
+## Introduction
 
-MCP（Model Context Protocol）是一个开放的标准协议，用于在语言模型应用程序和外部数据源及工具之间提供安全的连接。在 AI Manus 中，MCP 允许 AI 助手访问和使用各种外部服务和工具，如 GitHub API、文件系统、数据库等。
+MCP (Model Context Protocol) is an open standard protocol for providing secure connections between language model applications and external data sources and tools. In AI Manus, MCP allows AI assistants to access and use various external services and tools, such as GitHub API, file systems, databases, and more.
 
-## 演示
+## Demo
 
-> 任务：统计一下 simpleyyt 用户的 github 仓库
+> Task: Analyze the GitHub repositories of user simpleyyt
 
 ![](https://raw.githubusercontent.com/Simpleyyt/picgo-image/master/mcp.mp4 ':include controls width="100%"')
 
-## 配置说明
+## Configuration Guide
 
-### MCP 配置文件
+### MCP Configuration File
 
-MCP 服务器的配置通过 `mcp.json` 文件进行管理，该文件包含了所有 MCP 服务器的配置信息。
+MCP server configuration is managed through the `mcp.json` file, which contains configuration information for all MCP servers.
 
-#### 配置文件结构
+#### Configuration File Structure
 
 ```json
 {
   "mcpServers": {
-    "服务器名称": {
-      "command": "命令",
-      "args": ["参数列表"],
-      "transport": "传输方式",
+    "server_name": {
+      "command": "command",
+      "args": ["argument_list"],
+      "transport": "transport_method",
       "enabled": true/false,
-      "description": "服务器描述",
+      "description": "server_description",
       "env": {
-        "环境变量名": "环境变量值"
+        "environment_variable_name": "environment_variable_value"
       }
     }
   }
 }
 ```
 
-#### 当前配置示例
+#### Current Configuration Example
 
 ```json
 {
@@ -57,9 +57,9 @@ MCP 服务器的配置通过 `mcp.json` 文件进行管理，该文件包含了�
 }
 ```
 
-### Docker Compose 配置
+### Docker Compose Configuration
 
-在 `docker-compose.yml` 中配置 MCP 服务：
+Configure MCP service in `docker-compose.yml`:
 
 ```yaml
 ...
@@ -67,15 +67,15 @@ services:
   backend:
     image: simpleyyt/manus-backend
     volumes:
-      - ./mcp.json:/etc/mcp.json  # 挂载 MCP 配置文件
+      - ./mcp.json:/etc/mcp.json  # Mount MCP configuration file
       - ...
     environment:
-      # MCP 配置文件路径
+      # MCP configuration file path
       - MCP_CONFIG_PATH=/etc/mcp.json
 ...
 ```
 
-## 更多资源
+## Additional Resources
 
-- [MCP 官方文档](https://modelcontextprotocol.io/)
-- [MCP 服务器列表](https://github.com/modelcontextprotocol/servers)
+- [MCP Official Documentation](https://modelcontextprotocol.io/)
+- [MCP Server List](https://github.com/modelcontextprotocol/servers) 

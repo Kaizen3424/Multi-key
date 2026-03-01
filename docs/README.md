@@ -1,29 +1,38 @@
-# 🤖 AI Manus 开源通用智能体
+# 🤖 AI Manus Open Source General AI Agent
 
-项目地址：<https://github.com/Simpleyyt/ai-manus>
+Project URL: <https://github.com/Simpleyyt/ai-manus>
 
-加入我们的社群：[QQ群(1005477581)](https://qun.qq.com/universal-share/share?ac=1&authKey=p4X3Da5iMpR4liAenxwvhs7IValPKiCFtUevRlJouz9qSTSZsMnPJc3hzsJjgQYv&busi_data=eyJncm91cENvZGUiOiIxMDA1NDc3NTgxIiwidG9rZW4iOiJNZmUrTmQ0UzNDZDNqNDFVdjVPS1VCRkJGRWVlV0R3RFJSRVFoZDAwRjFDeUdUM0t6aUIyczlVdzRjV1BYN09IIiwidWluIjoiMzQyMjExODE1In0%3D&data=C3B-E6BlEbailV32co77iXL5vxPIhtD9y_itWLSq50hKqosO_55_isOZym2Faaq4hs9-517tUY8GSWaDwPom-A&svctype=4&tempid=h5_group_info)
-
----
-
-AI Manus 是一个通用的 AI Agent 系统，可以完全私有部署，支持在沙盒环境中运行各种工具和操作。
-
-AI Manus 项目目标是希望成为可完全私有部署的企业级 Manus 应用。垂类 Manus 的应用有多种重复性的工程化工作，这个项目希望把这部分统一，让大家可以像搭积木一下建立起一个垂类 Manus 应用。
-
-AI Manus 中每个服务与工具都包含一个 Built-in 版本，可以做到完全私有部署。后续可以通过 A2A 与 MCP 协议，把 Built-in 的 Agent 与 Tools 都置换掉。底层基建也可以通过提供多样的提供商配置或者简单的开发适配置换掉。AI Manus 从架构设计上便支持分布式多实例部署，方便横向扩展，达到企业级的部署要求。
+Join our community: [Discord](https://discord.gg/manus)
 
 ---
 
-## 基本功能
+AI Manus is a general-purpose AI Agent system that can be fully privately deployed and supports running various tools and operations in a sandbox environment.
+
+The goal of AI Manus project is to become a fully privately deployable enterprise-level Manus application. Vertical Manus applications have many repetitive engineering tasks, and this project hopes to unify this part, allowing everyone to build vertical Manus applications like building blocks.
+
+Each service and tool in AI Manus includes a Built-in version that can be fully privately deployed. Later, through A2A and MCP protocols, both Built-in Agents and Tools can be replaced. The underlying infrastructure can also be replaced by providing diverse provider configurations or simple development adaptations. AI Manus supports distributed multi-instance deployment from the architectural design, facilitating horizontal scaling to meet enterprise-level deployment requirements.
+
+---
+
+## Basic Features
 
 [](https://github.com/user-attachments/assets/37060a09-c647-4bcb-920c-959f7fa73ebe ':include :type=video controls width="100%"')
 
-## 核心功能
+## Core Features
 
- * **部署：**最小只需要一个 LLM 服务即可完成部署，不需要依赖其它外部服务。
- * **工具：**支持 Terminal、Browser、File、Web Search、消息工具，并支持实查看和接管。
- * **沙盒：**每个 Task 会分配单独的一个沙盒，沙盒在本地 Dock 环境里面运行。
- * **任务会话：**通过 Mongo/Redis 对会话历史进行管理，支持后台任务。
- * **对话：**支持停止与打断，支持文件上传与下载。
- * **多语言：**支持中文与英文。
- * **认证：**用户登录与认证。
+ * **Deployment:** Only requires an LLM service and E2B API key for deployment
+ * **Tools:** Supports Terminal, Browser, File, Web Search, message tools, with real-time viewing
+ * **Sandbox:** Each Task runs in an isolated E2B cloud sandbox
+ * **Task Sessions:** Manages session history through MongoDB/Redis, supports background tasks
+ * **Conversations:** Supports stopping and interruption, supports file upload and download
+ * **Multi-language:** Supports English and Chinese
+ * **Authentication:** User login and authentication
+
+---
+
+## Quick Links
+
+- [🚀 Quick Start](quick_start.md)
+- [📋 Configuration](configuration.md)
+- [⚙️ System Architecture](architecture.md)
+- [🔧 MCP Configuration](mcp.md)

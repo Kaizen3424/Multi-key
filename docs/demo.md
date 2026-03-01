@@ -1,20 +1,20 @@
-# ✨ 场景演示
+# ✨ Demo Scenarios
 
-## 电脑接管
+## Computer Takeover
 
-> 任务: 看一下知乎热搜
+> Task: Check Zhihu trending topics
 
 [](https://raw.githubusercontent.com/Simpleyyt/picgo-image/master/takeover.mp4 ':include controls width="100%"')
 
-## 文件处理
+## File Processing
 
-> 任务：转成 jpg
+> Task: Convert to JPG
 
 ![](https://raw.githubusercontent.com/Simpleyyt/picgo-image/master/file.mp4 ':include controls width="100%"')
 
 
-## MCP 工具调用
+## MCP Tool Integration
 
-> 任务：统计一下 simpleyyt 用户的 github 仓库
+> Task: Analyze the GitHub repositories of user simpleyyt
 
-![](https://raw.githubusercontent.com/Simpleyyt/picgo-image/master/mcp.mp4 ':include controls width="100%"')
+![](https://raw.githubusercontent.com/Simpleyyt/picgo-image/master/mcp.mp4 ':include controls width="100%"') 

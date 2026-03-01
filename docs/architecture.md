@@ -1,20 +1,29 @@
-# ⚙️ 系统架构
+# ⚙️ System Architecture
 
-## 整体设计
+## Overall Design
 
 ![Image](https://github.com/user-attachments/assets/69775011-1eb7-452f-adaf-cd6603a4dde5 ':size=600')
 
-**当用户发起对话时：**
+**When a user initiates a conversation:**
 
-1. Web 向 Server 发送创建 Agent 请求，Server 通过`/var/run/docker.sock`创建出 Sandbox，并返回会话 ID。
-2. Sandbox 是一个 Ubuntu Docker 环境，里面会启动 chrome 浏览器及 File/Shell 等工具的 API 服务。
-3. Web 往会话 ID 中发送用户消息，Server 收到用户消息后，将消息发送给 PlanAct Agent 处理。
-4. PlanAct Agent 处理过程中会调用相关工具完成任务。
-5. Agent 处理过程中产生的所有事件通过 SSE 发回 Web。
+1. Web sends a create Agent request to Server, Server creates an E2B Sandbox and returns session ID.
+2. Sandbox is an isolated E2B cloud environment with code execution, browser automation, and file/shell tools.
+3. Web sends user messages to the session ID, Server receives user messages and forwards them to PlanAct Agent for processing.
+4. PlanAct Agent calls relevant tools to complete tasks during processing.
+5. All events generated during Agent processing are sent back to Web via SSE.
 
-**当用户浏览工具时：**
+**When users use tools:**
 
-- 浏览器：
-    1. Sandbox 的无头浏览器通过 xvfb 与 x11vnc 启动了 vnc 服务，并且通过 websockify 将 vnc 转化成 websocket。
-    2. Web 的 NoVNC 组件通过 Server 的 Websocket Forward 转发到 Sandbox，实现浏览器查看。
-- 其它工具：其它工具原理也是差不多。
+- Terminal: Commands execute in the E2B sandbox environment
+- Browser: Headless browser automation via Playwright in E2B
+- File operations: Files are managed within the E2B sandbox
+- Other tools: Similar principles apply
+
+## E2B Sandbox
+
+AI Manus uses E2B cloud sandboxes for secure code execution:
+
+- **Isolation**: Each sandbox runs in an isolated container
+- **No Docker required**: Cloud-based execution
+- **Fast startup**: Sandboxes spin up in seconds
+- **Scalable**: Cloud-native architecture

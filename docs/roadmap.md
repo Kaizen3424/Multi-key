@@ -1,37 +1,37 @@
-# 📅 开发计划
+# 📅 Development Roadmap
 
-> 当前开发中的功能：配置
+> Currently under development: Settings
 
-## 工具
+## Tools
 
- * [x] 支持浏览器接管
- * [x] 支持外部 MCP 工具集成
- * [ ] 支持 Deploy & Expose 工具
+ * [x] Support browser takeover
+ * [x] Support external MCP tool integration
+ * [ ] Support Deploy & Expose tools
 
-## 用户认证
+## User Authentication
 
- * [x] 支持多用户
+ * [x] Support multi-user
 
-## 部署
+## Deployment
 
- * [ ] 支持 Docker Swarm 部署
- * [ ] 支持 Docker Compose 部署
+ * [ ] Support Docker Swarm deployment
+ * [ ] Support Docker Compose deployment
 
 ## UI
 
- * [ ] 支持设置
- * [ ] 支持时间轴回放
+ * [ ] Support settings
+ * [ ] Support timeline playback
 
-## 任务会话
+## Task Sessions
 
- * [x] 支持分享
+ * [x] Support sharing
 
-## 基建
+## Infrastructure
 
- * [ ] 支持 Windows & 手机接入
- * [ ] 支持 Bing、Google、Tavily 等搜索提供商
- * [ ] 支持阿里云等文件存储提供商
- * [ ] 支持 e2b 等沙盒提供商
- * [ ] 支持 mem0 记忆提供商
- * [ ] 后台任务换成 celery 任务
- * [ ] 沙盒企业级安全建设
+ * [ ] Support Windows & mobile access
+ * [ ] Support Bing, Google, Tavily and other search providers
+ * [ ] Support Alibaba Cloud and other file storage providers
+ * [ ] Support e2b and other sandbox providers
+ * [ ] Support mem0 memory providers
+ * [ ] Replace background tasks with celery tasks
+ * [ ] Enterprise-level security construction for sandbox 

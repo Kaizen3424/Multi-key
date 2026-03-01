@@ -9,7 +9,6 @@ httpx
 rich
 playwright>=1.42.0
 markdownify
-docker
 websockets
 motor>=3.3.2
 pymongo>=4.6.1
